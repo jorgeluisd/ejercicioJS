@@ -1,38 +1,21 @@
-function Persona() {
-  this.name = '';
-  this.age = 0;
-  this.DNI = this.createDNI();
-  this.sex = 'male';
-  this.weight = 0;
-  this.height = 0;
-}
-
-function Persona(name, age, sex) {
-  this.name = name;
-  this.age = age;
-  this.DNI = this.createDNI();
-  this.sex = sex;
-  this.weight = 0;
-  this.height = 0;
-}
-
 function Persona(name, age, sex, weight, height) {
-  this.name = name;
-  this.age = age;
+  this.name = name || '' ;
+  this.age =  age ||  0
   this.DNI = this.createDNI();
-  this.sex = sex;
-  this.weight = weight;
-  this.height = height;
+  this.sex = sex || 'male';
+  this.weight = weight || 0;
+  this.height = height || 0;
 }
 
 Persona.prototype.calculateIMC = function() {
   var IMC = this.weight / Math.pow(this.height,2);
 
-  if (IMC<20) {
+  if (isNaN(IMC)) { return; } 
+  else if (IMC < 20) {
   	return -1;
-  } else if (IMC>=20 && IMC<=25) {
+  } else if (IMC >= 20 && IMC <= 25) {
   	return 0;
-  } else if (IMC>25) {
+  } else if (IMC > 25) {
   	return 1;
   } else{
   	return null;
@@ -58,7 +41,7 @@ Persona.prototype.checkSex = function(sex='M') {
 Persona.prototype.toString = function() {
   return {	
   			'name' : this.name,
-  		  	'age' : this.age,
+  		  'age' : this.age,
   			'DNI' : this.DNI,
   			'sex' : this.sex,
   			'weight' : this.weight,
@@ -86,10 +69,7 @@ Persona.prototype.createDNI = function() {
   		i++;
   	}
 
-  	return parseInt(num);
-
-
-  	
+  	return parseInt(num);  	
 
 };
 
@@ -112,17 +92,3 @@ Persona.prototype.setWeight = function(weight) {
 Persona.prototype.setHeight = function(height) {
   this.height = height;
 };
-
-
-/*var persona1 = new Persona("Alicia");
-var persona2 = new Persona("Sebastian");
-var funcionSaludar = persona1.diHola;
-
-persona1.diHola();                            // muestra "Hola, Soy Alicia"
-persona2.diHola();                            // muestra "Hola, Soy Sebastian"
-funcionSaludar();                             // muestra "Hola, Soy undefined (ó da un error con el
-                                              // TypeError en modo estricto
-
-alert(funcionSaludar === persona1.diHola);            // muestra true (verdadero)
-alert(funcionSaludar === Persona.prototype.diHola);   // muestra true (verdadero)
-funcionSaludar.call(persona1);   */
